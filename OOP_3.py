@@ -47,7 +47,34 @@ class  TouristSpot:
 Туристическое место: {self.__name_place}
 Тип достопремичательности: {self.__type_place}
     """
+    
+    
+    
+class ModelWindow:
+    
+    HORIZONTAl = 1960
+    VERTICAL = 1080
+    
+    def __init__(self, title: str,
+                 coord_left_up: int,
+                 size_horizont: int,
+                 size_vertical: int,
+                 color_window: str,
+                 visibility: bool,
+                 frame: bool
+                 ):
+        
+        self.__title = title
+        self.__cocoord_left_up = coord_left_up
+        self.__size_horizont = size_horizont
+        self.__size_vertical = size_vertical
+        self.__color_window = color_window
+        self.__visibility = visibility
+        self.__frame = frame
 
+    def move_horizontal(self, new_move):
+        pass
+        
 class Program:
     
     @staticmethod
