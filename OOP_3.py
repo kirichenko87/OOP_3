@@ -23,7 +23,7 @@ class Patient:
 Запись к врачу: {self.__appointment_booking}
 
               """)
-
+##########################################################################################################
 
 class TouristSpot:
 
@@ -45,7 +45,7 @@ class TouristSpot:
 Тип достопремичательности: {self.__type_place}
     """
 
-
+#####################################################################################################
 class ModelWindow:
     HORIZONTAl = 1960
     VERTICAL = 1080
@@ -95,8 +95,8 @@ class ModelWindow:
     def set_size_window_horizontal(self, new_size: int):
         if not isinstance(new_size, int):
             raise "TypeError"
-        if self.__size_horizont > ModelWindow.HORIZONTAl or\
-                self.__size_horizont < 0:
+        if new_size > ModelWindow.HORIZONTAl or\
+                new_size < 0:
             raise "Размеры окна вне допустимого диапазона"
 
         self.__size_horizont = new_size
@@ -104,8 +104,8 @@ class ModelWindow:
     def set_size_window_vertical(self, new_size: int):
         if not isinstance(new_size, int):
             raise "TypeError"
-        if self.__size_horizont > ModelWindow.VERTICAL or \
-                self.__size_vertical < 0:
+        if new_size > ModelWindow.VERTICAL or \
+                new_size < 0:
             raise "Размеры окна вне допустимого диапазона"
 
         self.__size_vertical = new_size
@@ -130,6 +130,33 @@ class ModelWindow:
 Видимость окна: {self.__visibility}
 Наличие рамки окна: {self.__frame}
 """
+######################################################################################################################
+
+
+class Vector3D:
+    def __init__(self, x: float, y: float, z: float):
+        self.__x = x
+        self.__y = y
+        self.__z = z
+
+    def __add__(self, other):
+        other.__x = self.__x + other.__x
+        other.__y = self.__y + other.__x
+        other.__z = self.__z + other.__z
+        return Vector3D(other.__x, other.__z, other.__z)
+
+    def __sub__(self, other):
+        other.__x = self.__x - other.__x
+        other.__y = self.__y - other.__y
+        other.__z = self.__z - other.__z
+        return Vector3D(other.__x, other.__y, other.__z)
+
+
+    def __mul__(self, other):
+        other.__x = self.__y * other.__z - self.__z * other.__y
+        other.__y = self.__z * other.__x - self.__x * other.__y
+        other.__z = self.__x * other.__y - self.__y * other.__x
+        return Vector3D(other.__x, other.__y, other.__z)
 
 class Program:
 
@@ -146,7 +173,7 @@ class Program:
         w.set_color_window("Баклажан")
         w.get_status_window()
         w.set_status_window("Какое еще раз?")
-        w.set_size_window_vertical(4000)
+        w.set_size_window_vertical(40)
         w.set_size_window_horizontal(100)
         print(w)
 
