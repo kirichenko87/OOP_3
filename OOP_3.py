@@ -23,6 +23,8 @@ class Patient:
 Запись к врачу: {self.__appointment_booking}
 
               """)
+
+
 ##########################################################################################################
 
 class TouristSpot:
@@ -44,6 +46,7 @@ class TouristSpot:
 Туристическое место: {self.__name_place}
 Тип достопремичательности: {self.__type_place}
     """
+
 
 #####################################################################################################
 class ModelWindow:
@@ -80,7 +83,6 @@ class ModelWindow:
 
         self.__cocoord_left_up_x += new_move_x
 
-
     def move_vertical(self, new_move_y: int):
 
         if new_move_y + self.__size_horizont > ModelWindow.VERTICAL or \
@@ -95,7 +97,7 @@ class ModelWindow:
     def set_size_window_horizontal(self, new_size: int):
         if not isinstance(new_size, int):
             raise "TypeError"
-        if new_size > ModelWindow.HORIZONTAl or\
+        if new_size > ModelWindow.HORIZONTAl or \
                 new_size < 0:
             raise "Размеры окна вне допустимого диапазона"
 
@@ -130,6 +132,8 @@ class ModelWindow:
 Видимость окна: {self.__visibility}
 Наличие рамки окна: {self.__frame}
 """
+
+
 ######################################################################################################################
 
 
@@ -151,12 +155,71 @@ class Vector3D:
         other.__z = self.__z - other.__z
         return Vector3D(other.__x, other.__y, other.__z)
 
+    def __mul__(self, other):
+        if not isinstance(other, Vector3D):
+            newx = self.__x * other
+            newy = self.__y * other
+            newz = self.__z * other
+            return newx + newy + newz
+        else:
+            other.__x = self.__x * other.__x
+            other.__y = self.__y * other.__y
+            other.__z = self.__z * other.__z
+            rezult = other.__x + other.__y + other.__z
+
+            return rezult
+
+    def calculate_length(self):
+        length = (self.__x ** 2 + self.__y ** 2 + self.__z ** 2) ** 0.5
+        self.__calc_len = length
+        return length
+
+    def __str__(self):
+        return f"""
+Вектор точка Х: {self.__x}
+Вектор точка Y: {self.__y}
+Вектор точка Z: {self.__z}
+
+        """
+
+
+#############################################################################################################
+
+
+class Fraction:
+
+    def __init__(self, numerator: int,
+                 divider: int):
+        self.__numerator = numerator
+        self.__divider = self.divider_zero(divider)
+
+    def divider_zero(self, divider):
+        if divider == 0:
+            raise "Divider Zero"
+        return divider
+
+    def __add__(self, other):
+        new_num = self.__numerator + other.__numerator
+        new_divider = self.__divider + other.__divider
+        return Fraction(new_num, new_divider)
+
+    def __sub__(self, other):
+        new_num = self.__numerator - other.__numerator
+        new_divider = self.__divider - other.__divider
+        return Fraction(new_num, new_divider)
 
     def __mul__(self, other):
-        other.__x = self.__y * other.__z - self.__z * other.__y
-        other.__y = self.__z * other.__x - self.__x * other.__y
-        other.__z = self.__x * other.__y - self.__y * other.__x
-        return Vector3D(other.__x, other.__y, other.__z)
+        new_num = self.__numerator * other.__numerator
+        new_divider = self.__divider * other.__divider
+        return Fraction(new_num, new_divider)
+
+    def __str__(self):
+        if self.__numerator == self.__divider:
+            return f'{self.__numerator}'
+        elif self.__numerator < self.__divider:
+            return f" {self.__numerator}/{self.__divider}"
+        else:
+            return self.__numerator / self.__divider
 
 class Program:
 
@@ -176,5 +239,17 @@ class Program:
         w.set_size_window_vertical(40)
         w.set_size_window_horizontal(100)
         print(w)
+
+        v = Vector3D(3, 5, 9)
+        v2 = Vector3D(3, 2, 1)
+        print(v)
+        print(v.calculate_length())
+        multi = v * v2
+        multi2 = v2 * 3
+        print(multi2)
+
+
+        f = Fraction(1, 1)
+        print(f)
 
 Program.main()
