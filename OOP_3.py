@@ -221,6 +221,37 @@ class Fraction:
         else:
             return self.__numerator / self.__divider
 
+
+###################################################################################################################################
+
+
+class Student:
+    def __init__(self, name: str, age: int, grade=None):
+        self.__name = name
+        self.__age = age
+        if grade == None:
+            self.__grade = []
+        else:
+            self.__grade = grade
+        self.__avg = 
+
+    def add_grade(self, grade: list):
+        if not isinstance(grade, int):
+            raise 'TypeError'
+        return self.__grade.append(grade)
+
+    def avg_grade(self):
+        return sum(self.__grade) / len(self.__grade)
+
+    def __str__(self):
+        return f"""
+Имя студента: {self.__name}
+Возраст студента: {self.__age}
+Оценки студента: {self.__grade}
+Среднее оценок студента: {self.avg_grade(self.__grade)}
+        """
+
+
 class Program:
 
     @staticmethod
@@ -248,8 +279,14 @@ class Program:
         multi2 = v2 * 3
         print(multi2)
 
-
         f = Fraction(1, 1)
         print(f)
+
+        s = Student("Вова", 67, [4, 3, 2, 4, 5, 5, 4, 3])
+        s.add_grade(4)
+        rez = s.avg_grade()
+        print(rez)
+        print(s)
+
 
 Program.main()
