@@ -25,7 +25,7 @@ class Patient:
               """)
 
 
-##########################################################################################################
+######################################################################################################################
 
 class TouristSpot:
 
@@ -48,7 +48,7 @@ class TouristSpot:
     """
 
 
-#####################################################################################################
+######################################################################################################################
 class ModelWindow:
     HORIZONTAl = 1960
     VERTICAL = 1080
@@ -183,7 +183,7 @@ class Vector3D:
         """
 
 
-#############################################################################################################
+#######################################################################################################################
 
 
 class Fraction:
@@ -222,36 +222,93 @@ class Fraction:
             return self.__numerator / self.__divider
 
 
-###################################################################################################################################
+#######################################################################################################################
 
 
 class Student:
-    def __init__(self, name: str, age: int, grade=None):
+    def __init__(self, name: str, age: int, grade: list = None):
         self.__name = name
         self.__age = age
         if grade == None:
             self.__grade = []
         else:
             self.__grade = grade
-        self.__avg = 
+
 
     def add_grade(self, grade: list):
         if not isinstance(grade, int):
             raise 'TypeError'
         return self.__grade.append(grade)
 
+
     def avg_grade(self):
-        return sum(self.__grade) / len(self.__grade)
+        return f'Среднее значение всех оценок: {sum(self.__grade) / len(self.__grade)}'
+
 
     def __str__(self):
         return f"""
 Имя студента: {self.__name}
 Возраст студента: {self.__age}
 Оценки студента: {self.__grade}
-Среднее оценок студента: {self.avg_grade(self.__grade)}
         """
 
 
+class Course:
+    
+    def __init__(self, 
+                 fakultet: str, 
+                 name_teatcher: str, 
+                 max_value_students: int,
+                 lst_students: list=None):
+        
+        self.__fakultet = fakultet
+        self.__name_teatcher = name_teatcher
+        self.__max_value_students = max_value_students
+        self.__lst_students = lst_students
+
+    def add_student(self, new_std: str):
+        if not self.check_max_count():
+            raise "Невозможно добавить нового студента, на курсе нет свободных мест"
+        self.__lst_students.append(new_std)
+        
+    def remove_student(self, std: str):
+        if std not in self.__lst_students:
+            raise "Такого студента нет"
+        self.__lst_students.remove(std)
+        
+    def check_max_count(self):
+        if len(self.__lst_students) < self.__max_value_students:
+            return True
+        
+    def __str__(self):
+        return f""" 
+Мега курс: {self.__fakultet}
+Лучший преподаватель: {self.__name_teatcher}
+    """
+    
+    
+class University:
+    
+    def __init__(self, lst_course: Course=None):
+        if lst_course is None:
+            self.__lst_course = []
+        self.__lst_course = lst_course
+        
+    def add_new_course(self, course):
+        if course in self.__lst_course:
+            raise "Данный курс уже существует в университете"
+        self.__lst_course.append(course)
+    
+    def remove_course(self, course):
+        if course not in self.__lst_course:
+            raise "Данный курс отсутсвует в университете"
+        self.__lst_course.remove(course)
+        
+    def get_courses(self):
+        return self.__lst_course
+        
+    
+    
 class Program:
 
     @staticmethod
@@ -285,8 +342,11 @@ class Program:
         s = Student("Вова", 67, [4, 3, 2, 4, 5, 5, 4, 3])
         s.add_grade(4)
         rez = s.avg_grade()
-        print(rez)
         print(s)
+        print(rez)
+        
+        c = Course("Сантехников", "Стаханов АА", 28)
+        c.add_student("Иванов")
 
 
 Program.main()
